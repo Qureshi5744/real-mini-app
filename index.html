@@ -8,8 +8,8 @@
     <!-- Toastr CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
-    <!-- Updated Monetag Inline Ad Script -->
-    <script src="https://niphaumeenses.net/vignette.min.js" data-zone="8629454" data-sdk="show_8629454"></script>
+    <!-- ✅ Updated Monetag Script -->
+    <script src='//libtl.com/sdk.js' data-zone='8538056' data-sdk='show_8538056'></script>
 
     <style>
         body {
@@ -61,16 +61,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
     <script>
-        // Function to show ads
         function showAd(buttonId) {
             try {
-                // Check if the Monetag SDK is available
-                if (typeof show_8629454 === "function") {
-                    show_8629454();  // Display the ad using Monetag SDK
+                if (typeof show_8538056 === "function") {
+                    console.log('Calling show_8538056()');
+                    show_8538056(); // ✅ Updated function call
                     toastr.success(`Ad ${buttonId} was displayed successfully!`);
                 } else {
                     toastr.error('Monetag SDK not loaded correctly.', 'Error');
-                    console.error('Monetag SDK function is missing or not working.');
+                    console.error('Monetag SDK function show_8538056 is missing or undefined.');
                 }
             } catch (error) {
                 toastr.error('Failed to display the ad.', 'Error');
@@ -78,7 +77,7 @@
             }
         }
 
-        // Add click event listeners to buttons
+        // Attach event listeners
         document.getElementById('adButton1').addEventListener('click', () => showAd(1));
         document.getElementById('adButton2').addEventListener('click', () => showAd(2));
         document.getElementById('adButton3').addEventListener('click', () => showAd(3));
