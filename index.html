@@ -1,87 +1,180 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Monetag Ad Viewer</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Telegram Mini App</title>
 
-    <!-- Toastr CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+  <!-- ✅ Toastr CSS from reliable CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.css" />
 
-    <!-- ✅ Updated Monetag Script -->
-    <script src='//libtl.com/sdk.js' data-zone='8538056' data-sdk='show_8538056'></script>
+  <!-- ✅ Correct Monetag Ad Script with https -->
+  <script src="https://libtl.com/sdk.js" data-zone="8538056" data-sdk="show_8538056"></script>
 
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background-color: #f5f5f5;
-            margin: 0;
-        }
-        .container {
-            text-align: center;
-            background-color: #fff;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-            width: 90%;
-            max-width: 500px;
-        }
-        h2 {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-        }
-        .btn {
-            font-size: 1rem;
-            padding: 10px 20px;
-            margin: 5px;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-        .btn-primary { background-color: #007bff; color: white; }
-        .btn-success { background-color: #28a745; color: white; }
-        .btn-warning { background-color: #ffc107; color: white; }
-        .btn-danger { background-color: #dc3545; color: white; }
-    </style>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #f5f5f5;
+      margin: 0;
+    }
+
+    .container {
+      text-align: center;
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+      width: 90%;
+      max-width: 500px;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      font-size: 1rem;
+      padding: 10px 20px;
+      margin: 5px;
+      border-radius: 8px;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      color: white;
+    }
+
+    .btn-success {
+      background-color: #28a745;
+      color: white;
+    }
+
+    .btn-warning {
+      background-color: #ffc107;
+      color: white;
+    }
+
+    .btn-danger {
+      background-color: #dc3545;
+      color: white;
+    }
+
+    .btn-info {
+      background-color: #17a2b8;
+      color: white;
+    }
+
+    .btn-secondary {
+      background-color: #6c757d;
+      color: white;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Watch Monetag Ads</h2>
-        <div>
-            <button id="adButton1" class="btn btn-primary">Watch Ad 1</button>
-            <button id="adButton2" class="btn btn-success">Watch Ad 2</button>
-            <button id="adButton3" class="btn btn-warning">Watch Ad 3</button>
-            <button id="adButton4" class="btn btn-danger">Watch Ad 4</button>
-        </div>
+  <div class="container">
+    <h2>Watch Ads</h2>
+    <div>
+      <button id="adButton1" class="btn btn-primary">Watch Ad 1</button>
+      <button id="adButton2" class="btn btn-success">Watch Ad 2</button>
+      <button id="adButton3" class="btn btn-warning">Watch Ad 3</button>
+      <button id="adButton4" class="btn btn-danger">Watch Ad 4</button>
+      <button id="rewardedAdButton" class="btn btn-info">Watch Rewarded Ad</button>
+      <button id="rewardedPopupButton" class="btn btn-secondary">Watch Rewarded Popup</button>
     </div>
+  </div>
 
-    <!-- Toastr JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+  <!-- ✅ Toastr JS from reliable CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.js"></script>
 
-    <script>
-        function showAd(buttonId) {
-            try {
-                if (typeof show_8538056 === "function") {
-                    console.log('Calling show_8538056()');
-                    show_8538056(); // ✅ Updated function call
-                    toastr.success(`Ad ${buttonId} was displayed successfully!`);
-                } else {
-                    toastr.error('Monetag SDK not loaded correctly.', 'Error');
-                    console.error('Monetag SDK function show_8538056 is missing or undefined.');
-                }
-            } catch (error) {
-                toastr.error('Failed to display the ad.', 'Error');
-                console.error('Ad display error:', error);
-            }
+  <script>
+    function showAd(buttonId) {
+      try {
+        if (typeof show_8538056 === "function") {
+          show_8538056(); // Inline ad function
+          toastr.success(`You have watched ${buttonId}`);
+        } else {
+          toastr.error("Monetag SDK not loaded correctly", "Error");
+          console.error("Monetag SDK is missing or not working.");
         }
+      } catch (error) {
+        toastr.error("Failed to display ad.", "Error");
+        console.error(error);
+      }
+    }
 
-        // Attach event listeners
-        document.getElementById('adButton1').addEventListener('click', () => showAd(1));
-        document.getElementById('adButton2').addEventListener('click', () => showAd(2));
-        document.getElementById('adButton3').addEventListener('click', () => showAd(3));
-        document.getElementById('adButton4').addEventListener('click', () => showAd(4));
-    </script>
+    // Button event listeners
+    document.getElementById("adButton1").addEventListener("click", () => showAd("Ad 1"));
+    document.getElementById("adButton2").addEventListener("click", () => showAd("Ad 2"));
+    document.getElementById("adButton3").addEventListener("click", () => showAd("Ad 3"));
+    document.getElementById("adButton4").addEventListener("click", () => showAd("Ad 4"));
+
+    // Auto Interstitial Ad Trigger (optional)
+    setTimeout(() => {
+      try {
+        if (typeof show_8538056 === "function") {
+          show_8538056({
+            type: "inApp",
+            inAppSettings: {
+              frequency: 2,
+              capping: 0.1,
+              interval: 30,
+              timeout: 5,
+              everyPage: false,
+            },
+          });
+          console.log("In-App Interstitial Ad Triggered");
+        } else {
+          console.error("Monetag In-App Interstitial Ads not initialized");
+        }
+      } catch (error) {
+        console.error("Error in triggering In-App Interstitial Ads:", error);
+      }
+    }, 5000);
+
+    // Rewarded Ad
+    document.getElementById("rewardedAdButton").addEventListener("click", () => {
+      try {
+        if (typeof show_8538056 === "function") {
+          show_8538056().then(() => {
+            toastr.success("You have seen the ad and earned a reward!");
+            alert("Congratulations! You have earned a reward.");
+          });
+        } else {
+          toastr.error("Rewarded ad failed to load.", "Error");
+        }
+      } catch (error) {
+        toastr.error("Error showing rewarded ad.", "Error");
+        console.error(error);
+      }
+    });
+
+    // Rewarded Popup Ad
+    document.getElementById("rewardedPopupButton").addEventListener("click", () => {
+      try {
+        if (typeof show_8538056 === "function") {
+          show_8538056("pop")
+            .then(() => {
+              toastr.success("You have watched the Rewarded Popup Ad!");
+              alert("You have seen an ad and earned a reward!");
+            })
+            .catch((e) => {
+              toastr.error("Error displaying Rewarded Popup Ad.", "Error");
+              console.error("Error:", e);
+            });
+        } else {
+          toastr.error("Rewarded Popup Ad failed to load.", "Error");
+        }
+      } catch (error) {
+        toastr.error("Error displaying rewarded popup ad.", "Error");
+        console.error(error);
+      }
+    });
+  </script>
 </body>
 </html>
